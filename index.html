@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>English Dictation</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <h1>English Dictation</h1>
+
+        <!-- STEP 1: Enter text -->
+        <section id="setupSection">
+
+            <h2>Enter your text</h2>
+
+            <textarea
+                id="textInput"
+                placeholder="Enter or paste your English text here..."
+            ></textarea>
+
+            <button id="startButton">Start Dictation</button>
+
+        </section>
+
+
+        <!-- STEP 2: Dictation -->
+        <section id="dictationSection" class="hidden">
+
+            <p id="progressText">Word 1</p>
+
+            <div id="statusMessage">
+                Listen and type the word.
+            </div>
+
+            <input
+                type="text"
+                id="answerInput"
+                placeholder="Type the word..."
+                autocomplete="off"
+            >
+
+            <div class="buttons">
+
+                <button id="repeatButton">
+                    🔊 Hear Again
+                </button>
+
+                <button id="checkButton">
+                    Check
+                </button>
+                
+
+            </div>
+
+        </section>
+
+
+        <!-- STEP 3: Final result -->
+        <section id="resultSection" class="hidden">
+
+            <h2>Dictation Complete 🎉</h2>
+
+            <p id="totalWords"></p>
+            <p id="correctWords"></p>
+            <p id="mistakes"></p>
+            <p id="accuracy"></p>
+
+            <button id="restartButton">
+                Start Again
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
