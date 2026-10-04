@@ -4,101 +4,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#243b8f">
 
     <title>English Dictation</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20261004">
 </head>
 
 <body>
 
-    <main class="app">
-
-        <h1>English Dictation</h1>
-
-        <!-- STEP 1: Enter text -->
-        <section id="setupSection">
-
-            <h2>Enter your text</h2>
-
-            <div class="help-card" aria-labelledby="howToUseTitle">
-                <h3 id="howToUseTitle">How to use English Dictation</h3>
-                <ol>
-                    <li>Choose a English paragraph</li>
-                    <li>Copy the text and paste it into the box.</li>
-                    <li>Click <strong>Start Dictation</strong>, listen to each word, and type what you hear.</li>
-                    <li>Press <strong>Check</strong> (or the Space bar) to check your answer. Use <strong>Hear Again</strong> whenever you need it.</li>
-                </ol>
+    <main class="app-shell">
+        <header class="brand-header">
+            <div class="brand-mark" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
             </div>
-
-            <div class="practice-links" aria-labelledby="practiceLinksTitle">
-                <h3 id="practiceLinksTitle">Practice text links</h3>
-                <p>Open a source, copy a sentence or paragraph, then paste it below.</p>
-                <ul>
-                    <li><a href="https://simple.wikipedia.org/wiki/English_language" target="_blank" rel="noopener noreferrer">Simple English Wikipedia</a> — easy English articles.</li>
-                    <li><a href="https://en.wikipedia.org/wiki/English_language" target="_blank" rel="noopener noreferrer">Wikipedia</a> — regular English articles.</li>
-                    <li><a href="https://www.bbc.co.uk/learningenglish/english/features/6-minute-english" target="_blank" rel="noopener noreferrer">BBC Learning English</a> — short learning texts and transcripts.</li>
-                </ul>
+            <div>
+                <p class="eyebrow">Listen · type · learn</p>
+                <h1>English Dictation</h1>
+                <p class="brand-intro">Build spelling confidence, one word at a time.</p>
             </div>
+        </header>
 
-            <textarea
-                id="textInput"
-                placeholder="Copy text from a link above and paste it here..."
-            ></textarea>
+        <div class="app-card">
+            <!-- STEP 1: Enter text -->
+            <section id="setupSection" aria-labelledby="setupTitle">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">01 · Set up</p>
+                        <h2 id="setupTitle">Start a practice session</h2>
+                    </div>
+                    <p>Paste a sentence or paragraph. We’ll turn it into a word-by-word listening exercise.</p>
+                </div>
 
-            <button id="startButton">Start Dictation</button>
+                <div class="setup-grid">
+                    <div class="help-card" aria-labelledby="howToUseTitle">
+                        <div class="card-icon" aria-hidden="true">↗</div>
+                        <div>
+                            <h3 id="howToUseTitle">How it works</h3>
+                            <ol>
+                                <li>Choose a short English text.</li>
+                                <li>Paste it into the practice box.</li>
+                                <li>Listen, type each word, and check your answer.</li>
+                            </ol>
+                        </div>
+                    </div>
 
-        </section>
+                    <div class="practice-links" aria-labelledby="practiceLinksTitle">
+                        <div class="card-icon card-icon--warm" aria-hidden="true">✦</div>
+                        <div>
+                            <h3 id="practiceLinksTitle">Need practice text?</h3>
+                            <p>Try one of these learner-friendly sources.</p>
+                            <ul>
+                                <li><a href="https://simple.wikipedia.org/wiki/English_language" target="_blank" rel="noopener noreferrer">Simple English Wikipedia</a></li>
+                                <li><a href="https://en.wikipedia.org/wiki/English_language" target="_blank" rel="noopener noreferrer">Wikipedia</a></li>
+                                <li><a href="https://www.bbc.co.uk/learningenglish/english/features/6-minute-english" target="_blank" rel="noopener noreferrer">BBC Learning English</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label-row">
+                        <label for="textInput">Your practice text</label>
+                        <span id="wordCount" aria-live="polite">0 words</span>
+                    </div>
+                    <textarea
+                        id="textInput"
+                        placeholder="Paste your English text here..."
+                        aria-describedby="textHint"
+                    ></textarea>
+                    <p id="textHint" class="field-hint">Punctuation is ignored. Contractions such as “don’t” stay together.</p>
+                </div>
+
+                <div class="setup-actions">
+                    <button id="startButton" class="button button--primary">
+                        <span>Start dictation</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                    <p class="keyboard-hint"><kbd>Enter</kbd> checks an answer during practice</p>
+                </div>
+            </section>
 
 
-        <!-- STEP 2: Dictation -->
-        <section id="dictationSection" class="hidden">
+            <!-- STEP 2: Dictation -->
+            <section id="dictationSection" class="hidden" aria-labelledby="dictationTitle">
+                <div class="session-heading">
+                    <div>
+                        <p class="eyebrow">02 · Practice</p>
+                        <h2 id="dictationTitle">Listen closely</h2>
+                    </div>
+                    <div class="session-count">
+                        <p id="progressText">Word 1 of 1</p>
+                        <span id="progressPercent">0% complete</span>
+                    </div>
+                </div>
 
-            <p id="progressText">Word 1</p>
+                <div class="progress-track" aria-hidden="true">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
 
-            <div id="statusMessage">
-                Listen and type the word.
-            </div>
+                <div class="listen-panel">
+                    <div class="audio-orb" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <p class="listen-label">Audio dictation</p>
+                    <p id="statusMessage" role="status" aria-live="polite">Listen and type the word.</p>
+                </div>
 
-            <input
-                type="text"
-                id="answerInput"
-                placeholder="Type the word..."
-                autocomplete="off"
-            >
+                <div class="answer-field">
+                    <label for="answerInput">What did you hear?</label>
+                    <input
+                        type="text"
+                        id="answerInput"
+                        placeholder="Type the word..."
+                        autocomplete="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                    >
+                </div>
 
-            <div class="buttons">
+                <div class="buttons">
+                    <button id="repeatButton" class="button button--secondary">
+                        <span aria-hidden="true">↻</span>
+                        <span>Hear again</span>
+                    </button>
 
-                <button id="repeatButton">
-                    🔊 Hear Again
+                    <button id="checkButton" class="button button--primary">
+                        <span>Check answer</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+
+                <p class="keyboard-hint keyboard-hint--center"><kbd>Enter</kbd> or <kbd>Space</kbd> to check your answer</p>
+            </section>
+
+
+            <!-- STEP 3: Final result -->
+            <section id="resultSection" class="hidden results" aria-labelledby="resultsTitle">
+                <div class="result-badge" aria-hidden="true">✦</div>
+                <p class="eyebrow">03 · Complete</p>
+                <h2 id="resultsTitle">Nice work!</h2>
+                <p class="results-intro">You completed the whole dictation exercise.</p>
+
+                <div class="accuracy-card">
+                    <span>Final accuracy</span>
+                    <strong id="accuracy">0%</strong>
+                </div>
+
+                <dl class="result-stats">
+                    <div>
+                        <dt>Total words</dt>
+                        <dd id="totalWords">0</dd>
+                    </div>
+                    <div>
+                        <dt>Correct words</dt>
+                        <dd id="correctWords">0</dd>
+                    </div>
+                    <div>
+                        <dt>Mistakes</dt>
+                        <dd id="mistakes">0</dd>
+                    </div>
+                </dl>
+
+                <button id="restartButton" class="button button--primary button--full">
+                    <span>Practice another text</span>
+                    <span aria-hidden="true">→</span>
                 </button>
-
-                <button id="checkButton">
-                    Check
-                </button>
-                
-
-            </div>
-
-        </section>
-
-
-        <!-- STEP 3: Final result -->
-        <section id="resultSection" class="hidden">
-
-            <h2>Dictation Complete 🎉</h2>
-
-            <p id="totalWords"></p>
-            <p id="correctWords"></p>
-            <p id="mistakes"></p>
-            <p id="accuracy"></p>
-
-            <button id="restartButton">
-                Start Again
-            </button>
-
-        </section>
-
+            </section>
+        </div>
     </main>
 
     <script src="script.js"></script>

@@ -18,6 +18,9 @@ const mistakes = document.getElementById("mistakes");
 const accuracy = document.getElementById("accuracy");
 
 const restartButton = document.getElementById("restartButton");
+const wordCount = document.getElementById("wordCount");
+const progressFill = document.getElementById("progressFill");
+const progressPercent = document.getElementById("progressPercent");
 
 const PHASE = Object.freeze({
     IDLE: "idle",
@@ -136,6 +139,21 @@ function setAnswerControlsEnabled(enabled) {
     repeatButton.disabled = !enabled;
 }
 
+function updateWordCount() {
+    const count = extractWords(textInput.value).length;
+    wordCount.textContent = count + " " + (count === 1 ? "word" : "words");
+}
+
+function updateProgress() {
+    const completedWords = currentWordIndex;
+    const percentage = words.length === 0
+        ? 0
+        : Math.round((completedWords / words.length) * 100);
+
+    progressFill.style.width = percentage + "%";
+    progressPercent.textContent = percentage + "% complete";
+}
+
 function showCurrentWord() {
     const expectedRunId = runId;
 
@@ -148,6 +166,7 @@ function showCurrentWord() {
     setAnswerControlsEnabled(false);
     answerInput.value = "";
     progressText.textContent = "Word " + (currentWordIndex + 1) + " of " + words.length;
+    updateProgress();
     statusMessage.textContent = "Listen to the word.";
 
     speakText(words[currentWordIndex], 0.8).then(function (result) {
@@ -254,10 +273,10 @@ function finishDictation() {
         ? 0
         : Math.round((correctCount / attempts) * 100);
 
-    totalWords.textContent = "Total Words: " + total;
-    correctWords.textContent = "Correct Words: " + correctCount;
-    mistakes.textContent = "Mistakes: " + mistakeCount;
-    accuracy.textContent = "Accuracy: " + calculatedAccuracy + "%";
+    totalWords.textContent = total;
+    correctWords.textContent = correctCount;
+    mistakes.textContent = mistakeCount;
+    accuracy.textContent = calculatedAccuracy + "%";
 }
 
 function checkAnswer() {
@@ -332,6 +351,7 @@ function startDictation() {
     setupSection.classList.add("hidden");
     dictationSection.classList.remove("hidden");
     resultSection.classList.add("hidden");
+    updateProgress();
     showCurrentWord();
 }
 
@@ -350,6 +370,7 @@ function restartDictation() {
     dictationSection.classList.add("hidden");
     setupSection.classList.remove("hidden");
     textInput.value = "";
+    updateWordCount();
     startButton.disabled = false;
     setAnswerControlsEnabled(false);
     textInput.focus();
@@ -359,6 +380,7 @@ startButton.addEventListener("click", startDictation);
 checkButton.addEventListener("click", checkAnswer);
 repeatButton.addEventListener("click", repeatCurrentWord);
 restartButton.addEventListener("click", restartDictation);
+textInput.addEventListener("input", updateWordCount);
 
 answerInput.addEventListener("keydown", function (event) {
     if (
@@ -374,3 +396,4 @@ answerInput.addEventListener("keydown", function (event) {
 });
 
 setAnswerControlsEnabled(false);
+updateWordCount();
