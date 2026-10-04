@@ -21,9 +21,29 @@
 
             <h2>Enter your text</h2>
 
+            <div class="help-card" aria-labelledby="howToUseTitle">
+                <h3 id="howToUseTitle">How to use English Dictation</h3>
+                <ol>
+                    <li>Choose a English paragraph</li>
+                    <li>Copy the text and paste it into the box.</li>
+                    <li>Click <strong>Start Dictation</strong>, listen to each word, and type what you hear.</li>
+                    <li>Press <strong>Check</strong> (or the Space bar) to check your answer. Use <strong>Hear Again</strong> whenever you need it.</li>
+                </ol>
+            </div>
+
+            <div class="practice-links" aria-labelledby="practiceLinksTitle">
+                <h3 id="practiceLinksTitle">Practice text links</h3>
+                <p>Open a source, copy a sentence or paragraph, then paste it below.</p>
+                <ul>
+                    <li><a href="https://simple.wikipedia.org/wiki/English_language" target="_blank" rel="noopener noreferrer">Simple English Wikipedia</a> — easy English articles.</li>
+                    <li><a href="https://en.wikipedia.org/wiki/English_language" target="_blank" rel="noopener noreferrer">Wikipedia</a> — regular English articles.</li>
+                    <li><a href="https://www.bbc.co.uk/learningenglish/english/features/6-minute-english" target="_blank" rel="noopener noreferrer">BBC Learning English</a> — short learning texts and transcripts.</li>
+                </ul>
+            </div>
+
             <textarea
                 id="textInput"
-                placeholder="Enter or paste your English text here..."
+                placeholder="Copy text from a link above and paste it here..."
             ></textarea>
 
             <button id="startButton">Start Dictation</button>

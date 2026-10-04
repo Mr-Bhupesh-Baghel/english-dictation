@@ -21,6 +21,48 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    margin-bottom: 12px;
+}
+
+h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.help-card,
+.practice-links {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.help-card {
+    background: #eef6ff;
+    border-left: 4px solid #2b78c5;
+}
+
+.practice-links {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+}
+
+.help-card ol,
+.practice-links ul {
+    margin: 8px 0 0;
+    padding-left: 22px;
+    line-height: 1.55;
+}
+
+.practice-links p {
+    margin: 0;
+}
+
+.practice-links a {
+    color: #075db3;
+    font-weight: bold;
+}
+
 textarea {
     width: 100%;
     height: 200px;
