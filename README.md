@@ -14,7 +14,7 @@ You can also serve the project with any static web server if you prefer. The app
 
 ## How to use it
 
-1. On the first screen, copy an English sentence or paragraph and paste it into the text box. The page includes links to a few practice-text sources.
+1. On the first screen, either paste an English sentence or paragraph, or use **Create a text with ChatGPT**. Choose a topic, level, and length, then select **Open ChatGPT**. The app copies a ready-to-use request and opens ChatGPT in a new tab; paste that request there, refine the result if you like, then paste or drag the response into the practice box.
 2. Select **Start Dictation**.
 3. The app speaks the first word. When it finishes, type the word you heard.
 4. Select **Check**, or press **Enter** or **Space**, to submit your answer.
@@ -29,6 +29,10 @@ The app splits the pasted text into words and presents them in the same order as
 Answers are checked without regard to uppercase or lowercase letters. Common curly apostrophes are treated the same as a straight apostrophe, so `don't` and `don’t` match.
 
 While a word is playing, the answer box and buttons are temporarily disabled. This prevents an answer from being submitted before the audio has finished. If your browser cannot play speech, the app tells you and still lets you type and check the word.
+
+## Using ChatGPT for practice text
+
+ChatGPT is opened in a separate browser tab, rather than displayed in an iframe. ChatGPT controls whether its website can be embedded, and allowing it to open as its own page lets people sign in and chat normally. The dictation app does not send the learner’s topic or text to any server; it only prepares the prompt and accepts the text that the learner chooses to paste or drag back.
 
 ## Incorrect answers and feedback
 

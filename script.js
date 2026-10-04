@@ -21,6 +21,12 @@ const restartButton = document.getElementById("restartButton");
 const wordCount = document.getElementById("wordCount");
 const progressFill = document.getElementById("progressFill");
 const progressPercent = document.getElementById("progressPercent");
+const chatgptTopic = document.getElementById("chatgptTopic");
+const practiceLevel = document.getElementById("practiceLevel");
+const practiceLength = document.getElementById("practiceLength");
+const openChatGPTButton = document.getElementById("openChatGPTButton");
+const copyPromptButton = document.getElementById("copyPromptButton");
+const chatGPTStatus = document.getElementById("chatGPTStatus");
 
 const PHASE = Object.freeze({
     IDLE: "idle",
@@ -142,6 +148,49 @@ function setAnswerControlsEnabled(enabled) {
 function updateWordCount() {
     const count = extractWords(textInput.value).length;
     wordCount.textContent = count + " " + (count === 1 ? "word" : "words");
+}
+
+function buildChatGPTPrompt() {
+    const topic = chatgptTopic.value.trim() || "an interesting everyday topic";
+    const level = practiceLevel.value;
+    const length = practiceLength.value;
+
+    return "Write a " + level + " English reading passage about " + topic +
+        ". Make it about " + length + " words long. Use natural, clear English. " +
+        "Return only the passage, with no title, notes, questions, or vocabulary list. " +
+        "I will use it for a word-by-word dictation exercise.";
+}
+
+function setChatGPTStatus(message) {
+    chatGPTStatus.textContent = message;
+}
+
+async function copyChatGPTPrompt() {
+    const prompt = buildChatGPTPrompt();
+
+    try {
+        await navigator.clipboard.writeText(prompt);
+        setChatGPTStatus("Prompt copied. Paste it into ChatGPT, then bring the passage back here.");
+        return true;
+    } catch (error) {
+        // Clipboard access can be unavailable when the page is opened directly from a file.
+        window.prompt("Copy this prompt, then paste it into ChatGPT:", prompt);
+        setChatGPTStatus("Copy the prompt shown above, then paste it into ChatGPT.");
+        return false;
+    }
+}
+
+async function openChatGPT() {
+    // Open synchronously within the button click so browsers do not treat it as a popup.
+    window.open("https://chatgpt.com/", "_blank", "noopener,noreferrer");
+    const copied = await copyChatGPTPrompt();
+
+    if (copied) {
+        setChatGPTStatus("ChatGPT opened in a new tab. Your prompt is copied and ready to paste there.");
+    } else {
+        setChatGPTStatus("ChatGPT opened in a new tab. Ask for a " + practiceLevel.value +
+            " passage about “" + (chatgptTopic.value.trim() || "your chosen topic") + ".”");
+    }
 }
 
 function updateProgress() {
@@ -381,6 +430,8 @@ checkButton.addEventListener("click", checkAnswer);
 repeatButton.addEventListener("click", repeatCurrentWord);
 restartButton.addEventListener("click", restartDictation);
 textInput.addEventListener("input", updateWordCount);
+copyPromptButton.addEventListener("click", copyChatGPTPrompt);
+openChatGPTButton.addEventListener("click", openChatGPT);
 
 answerInput.addEventListener("keydown", function (event) {
     if (
