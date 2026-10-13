@@ -699,6 +699,74 @@ input {
     letter-spacing: -0.04em;
 }
 
+.mistake-list-panel {
+    margin: 0 0 20px;
+    padding: 18px 16px 14px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface-soft);
+    text-align: left;
+}
+
+.mistake-list-panel h3 {
+    margin-bottom: 12px;
+    color: var(--ink);
+    font-size: 0.95rem;
+}
+
+.mistake-list {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mistake-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #edf1fb;
+}
+
+.mistake-item__prompt {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.mistake-item__label {
+    color: var(--muted);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.mistake-item__attempt,
+.mistake-item__correct {
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.mistake-item__attempt {
+    color: #b42318;
+}
+
+.mistake-item__arrow {
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.mistake-item__correct {
+    color: #0f8a54;
+}
+
 .button--full {
     width: 100%;
 }

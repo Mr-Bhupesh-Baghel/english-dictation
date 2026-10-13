@@ -41,6 +41,7 @@ let currentWordIndex = 0;
 let correctCount = 0;
 let mistakeCount = 0;
 let mistakesByWordPosition = [];
+let incorrectWords = [];
 let phase = PHASE.IDLE;
 let runId = 0;
 let speechId = 0;
@@ -66,6 +67,15 @@ function normalizeAnswer(answer) {
         .normalize("NFKC")
         .replace(/[\u2018\u2019\u201B\u02BC\uFF07]/g, "'")
         .toLowerCase();
+}
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 function spellingForSpeech(word) {
@@ -309,6 +319,31 @@ function explainMistake(expectedRunId, word, revealWord) {
         });
 }
 
+function renderIncorrectWords() {
+    const incorrectWordsList = document.getElementById("incorrectWordsList");
+    const incorrectWordsSection = document.getElementById("incorrectWordsSection");
+
+    if (!incorrectWords.length) {
+        incorrectWordsSection.classList.add("hidden");
+        incorrectWordsList.innerHTML = "";
+        return;
+    }
+
+    incorrectWordsSection.classList.remove("hidden");
+    incorrectWordsList.innerHTML = incorrectWords
+        .map(function (item) {
+            return "<li class=\"mistake-item\">" +
+                "<div class=\"mistake-item__prompt\">" +
+                    "<span class=\"mistake-item__label\">Word " + item.wordNumber + "</span>" +
+                    "<span class=\"mistake-item__attempt\">" + escapeHtml(item.attempted) + "</span>" +
+                "</div>" +
+                "<span class=\"mistake-item__arrow\" aria-hidden=\"true\">→</span>" +
+                "<span class=\"mistake-item__correct\">" + escapeHtml(item.correct) + "</span>" +
+            "</li>";
+        })
+        .join("");
+}
+
 function finishDictation() {
     phase = PHASE.COMPLETE;
     isSubmitting = false;
@@ -326,6 +361,7 @@ function finishDictation() {
     correctWords.textContent = correctCount;
     mistakes.textContent = mistakeCount;
     accuracy.textContent = calculatedAccuracy + "%";
+    renderIncorrectWords();
 }
 
 function checkAnswer() {
@@ -362,6 +398,11 @@ function checkAnswer() {
     mistakeCount++;
     mistakesByWordPosition[currentWordIndex] =
         (mistakesByWordPosition[currentWordIndex] || 0) + 1;
+    incorrectWords.push({
+        wordNumber: currentWordIndex + 1,
+        attempted: userAnswer,
+        correct: correctAnswer
+    });
     phase = PHASE.EXPLAINING_MISTAKE;
     answerInput.value = "";
     setAnswerControlsEnabled(false);
@@ -394,6 +435,7 @@ function startDictation() {
     correctCount = 0;
     mistakeCount = 0;
     mistakesByWordPosition = [];
+    incorrectWords = [];
     phase = PHASE.SPEAKING_WORD;
     isSubmitting = false;
 
@@ -412,6 +454,7 @@ function restartDictation() {
     correctCount = 0;
     mistakeCount = 0;
     mistakesByWordPosition = [];
+    incorrectWords = [];
     phase = PHASE.IDLE;
     isSubmitting = false;
 
